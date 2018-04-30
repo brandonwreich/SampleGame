@@ -25,7 +25,7 @@ namespace SampleGame
 		public void Initialize(ContentManager content, String texturePath, int screenWidth, int speed)
 		{
 			// Load the background texture we will be using
-			texture = content.Load(texturePath);
+			texture = content.Load<Texture2D>(texturePath);
 
 			// Set the speed of the background
 			this.speed = speed;
