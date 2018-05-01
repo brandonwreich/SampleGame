@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,10 +18,10 @@ namespace SampleGame
 
 		public ParallaxingBackground()
 		{
-			
+
 		}
 
-		public void Initialize(ContentManager content, String texturePath, int screenWidth, int speed)
+		public void Initialize(ContentManager content, string texturePath, int screenWidth, int speed)
 		{
 			// Load the background texture we will be using
 			texture = content.Load<Texture2D>(texturePath);

@@ -74,8 +74,9 @@ namespace SampleGame.Controller
 
 		//Number that holds the player score
 		private int score;
+
 		// The font used to display UI elements
-		private SpriteFont font;
+	//	private SpriteFont font;
 
 		public SpaceGame()
 		{
@@ -245,9 +246,9 @@ namespace SampleGame.Controller
 			}
 
 			// Draw the score
-			spriteBatch.DrawString(font, "score: " + score, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+		//	spriteBatch.DrawString(font, "score: " + score, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 			// Draw the player health
-			spriteBatch.DrawString(font, "health: " + player.Health, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
+		//	spriteBatch.DrawString(font, "health: " + player.Health, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
 
 			// Stop drawing
 			spriteBatch.End();
@@ -354,7 +355,7 @@ namespace SampleGame.Controller
 					enemies.RemoveAt(i);
 
 					//Add to the player's score
-					score += enemies[i].Value;
+					score += enemies[i].ScoreValue;
 
 					// Play the explosion sound
 					explosionSound.Play();

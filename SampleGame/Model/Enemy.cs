@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SampleGame.View;
 
@@ -81,7 +80,6 @@ namespace SampleGame.Model
 			// We initialize the enemy to be active so it will be update in the game
 			active = true;
 
-
 			// Set the health of the enemy
 			health = 10;
 
@@ -90,7 +88,6 @@ namespace SampleGame.Model
 
 			// Set how fast the enemy moves
 			enemyMoveSpeed = 6f;
-
 
 			// Set the score value of the enemy
 			scoreValue = 100;

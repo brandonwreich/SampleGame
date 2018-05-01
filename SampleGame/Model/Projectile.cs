@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SampleGame.Model
@@ -53,7 +52,7 @@ namespace SampleGame.Model
 
 		public Projectile()
 		{
-			
+
 		}
 
 		public void Initialize(Viewport viewport, Texture2D texture, Vector2 position)
