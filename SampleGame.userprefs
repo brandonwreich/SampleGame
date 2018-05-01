@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{94F61021-E65B-427C-A1D1-993C756227B9}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="SampleGame/Controller/SpaceGame.cs">
     <Files>
-      <File FileName="SampleGame/Controller/SpaceGame.cs" Line="251" Column="5" />
+      <File FileName="SampleGame/Controller/SpaceGame.cs" Line="146" Column="4" />
       <File FileName="SampleGame/Model/Player.cs" Line="48" Column="3" />
       <File FileName="SampleGame/View/Animation.cs" Line="71" Column="3" />
       <File FileName="SampleGame/View/ParallaxingBackground.cs" Line="19" Column="3" />
-      <File FileName="SampleGame/Model/Enemy.cs" Line="67" Column="3" />
+      <File FileName="SampleGame/Model/Enemy.cs" Line="57" Column="3" />
       <File FileName="SampleGame/Model/Projectile.cs" Line="61" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
