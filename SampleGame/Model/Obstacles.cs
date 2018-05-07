@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SampleGame.Model
 {
-	public class Projectile
+	public class Obstacles
 	{
 		// Image representing the Projectile
 		private Texture2D texture;
@@ -48,9 +49,9 @@ namespace SampleGame.Model
 		}
 
 		// Determines how fast the projectile moves
-		private float projectileMoveSpeed;
+		private float obstacleMoveSpeed;
 
-		public Projectile()
+		public Obstacles()
 		{
 
 		}
@@ -63,18 +64,18 @@ namespace SampleGame.Model
 
 			active = true;
 
-			damage = 3;
+			damage = 100;
 
-			projectileMoveSpeed = 20f;
+			obstacleMoveSpeed = 10f;
 		}
 
 		public void Update()
 		{
-			// Projectiles always move to the right
-			Position.X += projectileMoveSpeed;
+			// Wall always move to the left
+			Position.X -= obstacleMoveSpeed;
 
-			// Deactivate the bullet if it goes out of screen
-			if (Position.X + Texture.Width / 2 > viewport.Width)
+			// Deactivate the wall if it goes out of screen
+			if (Position.X - Texture.Width / 2 > viewport.Width)
 			{
 				active = false;
 			}

@@ -49,12 +49,18 @@ namespace SampleGame.Controller
 		private TimeSpan enemySpawnTime;
 		private TimeSpan previousSpawnTime;
 
+		private TimeSpan wallSpawnTime;
+		private TimeSpan previousWallSpawnTime;
+
 		// A random number generator
 		private Random random;
 
-
 		private Texture2D projectileTexture;
 		private List<Projectile> projectiles;
+
+
+		private Texture2D wallTexture;
+		private List<Obstacles> walls;
 
 		// The rate of fire of the player laser
 		private TimeSpan fireTime;
@@ -75,8 +81,10 @@ namespace SampleGame.Controller
 		//Number that holds the player score
 		private int score;
 
+		private int levelCount;
+
 		// The font used to display UI elements
-	//	private SpriteFont font;
+		private SpriteFont font;
 
 		public SpaceGame()
 		{
@@ -105,20 +113,26 @@ namespace SampleGame.Controller
 			previousSpawnTime = TimeSpan.Zero;
 
 			// Used to determine how fast enemy respawns
-			enemySpawnTime = TimeSpan.FromSeconds(1.0f);
+			enemySpawnTime = TimeSpan.FromSeconds(.1f);
+
+			wallSpawnTime = TimeSpan.FromSeconds(1f);
 
 			// Initialize our random number generator
 			random = new Random();
 
 			projectiles = new List<Projectile>();
 
+			walls = new List<Obstacles>();
+
 			// Set the laser to fire every quarter second
-			fireTime = TimeSpan.FromSeconds(.15f);
+			fireTime = TimeSpan.FromSeconds(.012f);
 
 			explosions = new List<Animation>();
 
 			//Set player's score to zero
 			score = 0;
+
+			levelCount = 1;
 
 			base.Initialize();
 		}
@@ -149,6 +163,8 @@ namespace SampleGame.Controller
 			enemyTexture = Content.Load<Texture2D>("Animation/mineAnimation");
 
 			projectileTexture = Content.Load<Texture2D>("Texture/laser");
+
+			wallTexture = Content.Load<Texture2D>("Texture/wall");
 
 			explosionTexture = Content.Load<Texture2D>("Animation/explosion");
 
@@ -201,6 +217,8 @@ namespace SampleGame.Controller
 			// Update the projectiles
 			UpdateProjectiles();
 
+			UpdateWalls(gameTime);
+
 			// Update the explosions
 			UpdateExplosions(gameTime);
 
@@ -239,6 +257,12 @@ namespace SampleGame.Controller
 				projectiles[i].Draw(spriteBatch);
 			}
 
+			// Draw walls
+			for (int i = 0; i < walls.Count; i++)
+			{
+				walls[i].Draw(spriteBatch);
+			}
+
 			// Draw the explosions
 			for (int i = 0; i < explosions.Count; i++)
 			{
@@ -246,9 +270,9 @@ namespace SampleGame.Controller
 			}
 
 			// Draw the score
-		//	spriteBatch.DrawString(font, "score: " + score, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+			//			spriteBatch.DrawString(font, "score: " + score, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 			// Draw the player health
-		//	spriteBatch.DrawString(font, "health: " + player.Health, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
+			//			spriteBatch.DrawString(font, "health: " + player.Health, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
 
 			// Stop drawing
 			spriteBatch.End();
@@ -299,7 +323,7 @@ namespace SampleGame.Controller
 				laserSound.Play();
 			}
 
-			// reset score if player health goes to zero
+			// Reset score if player health goes to zero
 			if (player.Health <= 0)
 			{
 				player.Health = 100;
@@ -355,7 +379,7 @@ namespace SampleGame.Controller
 					enemies.RemoveAt(i);
 
 					//Add to the player's score
-					score += enemies[i].ScoreValue;
+					//		score += enemies[i].ScoreValue;
 
 					// Play the explosion sound
 					explosionSound.Play();
@@ -403,8 +427,7 @@ namespace SampleGame.Controller
 				for (int j = 0; j < enemies.Count; j++)
 				{
 					// Create the rectangles we need to determine if we collided with each other
-					rectangle1 = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y -
-			 projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+					rectangle1 = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
 					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2, (int)enemies[j].Position.Y - enemies[j].Height / 2, enemies[j].Width, enemies[j].Height);
 
@@ -413,6 +436,41 @@ namespace SampleGame.Controller
 					{
 						enemies[j].Health -= projectiles[i].Damage;
 						projectiles[i].Active = false;
+					}
+				}
+			}
+
+			// Wall vs enemy
+			for (int i = 0; i < walls.Count; i++)
+			{
+				for (int j = 0; j < enemies.Count; j++)
+				{
+					rectangle1 = new Rectangle((int)walls[i].Position.X - walls[i].Width / 2, (int)walls[i].Position.Y - walls[i].Height / 2, walls[i].Width, walls[i].Height);
+					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2, (int)enemies[j].Position.Y - enemies[j].Height / 2, enemies[j].Width, enemies[j].Height);
+
+					if (rectangle1.Intersects(rectangle2))
+					{
+						enemies[j].Health -= walls[i].Damage;
+					}
+				}
+			}
+
+			// Wall vs player
+
+			rectangle1 = new Rectangle((int)player.Position.X, (int)player.Position.Y, player.Width, player.Height);
+
+			for (int i = 0; i < walls.Count; i++)
+			{
+				rectangle2 = new Rectangle((int)walls[i].Position.X - walls[i].Width / 2, (int)walls[i].Position.Y - walls[i].Height / 2, walls[i].Width, walls[i].Height);
+
+
+				if (rectangle1.Intersects(rectangle2))
+				{
+					player.Health -= walls[i].Damage;
+
+					if (player.Health <= 0)
+					{
+						player.Active = false;
 					}
 				}
 			}
@@ -435,6 +493,35 @@ namespace SampleGame.Controller
 				if (projectiles[i].Active == false)
 				{
 					projectiles.RemoveAt(i);
+				}
+			}
+		}
+
+		private void AddWall()
+		{
+			Obstacles wall = new Obstacles();
+			Vector2 position = new Vector2(GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, random.Next(100, GraphicsDevice.Viewport.Height - 100));
+			wall.Initialize(GraphicsDevice.Viewport, wallTexture, position);
+			walls.Add(wall);
+		}
+
+		private void UpdateWalls(GameTime gameTime)
+		{
+			if (gameTime.TotalGameTime - previousWallSpawnTime > wallSpawnTime)
+			{
+				previousWallSpawnTime = gameTime.TotalGameTime;
+
+				// Add an Enemy
+				AddWall();
+			}
+
+			for (int i = walls.Count - 1; i >= 0; i--)
+			{
+				walls[i].Update();
+
+				if (walls[i].Active == false)
+				{
+					walls.RemoveAt(i);
 				}
 			}
 		}

@@ -1,17 +1,21 @@
 ﻿<Properties StartupConfiguration="{94F61021-E65B-427C-A1D1-993C756227B9}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="SampleGame/Controller/SpaceGame.cs">
     <Files>
-      <File FileName="SampleGame/Controller/SpaceGame.cs" Line="146" Column="4" />
+      <File FileName="SampleGame/Controller/SpaceGame.cs" Line="311" Column="111" />
       <File FileName="SampleGame/Model/Player.cs" Line="48" Column="3" />
       <File FileName="SampleGame/View/Animation.cs" Line="71" Column="3" />
       <File FileName="SampleGame/View/ParallaxingBackground.cs" Line="19" Column="3" />
       <File FileName="SampleGame/Model/Enemy.cs" Line="57" Column="3" />
-      <File FileName="SampleGame/Model/Projectile.cs" Line="61" Column="4" />
+      <File FileName="SampleGame/Model/Projectile.cs" Line="85" Column="4" />
+      <File FileName="SampleGame/Model/Powerups.cs" Line="1" Column="1" />
+      <File FileName="SampleGame/Model/Obstacles.cs" Line="62" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/brei8876/GameDevProjects/SampleGame/SampleGame/Controller/SpaceGame.cs" relfile="SampleGame/Controller/SpaceGame.cs" line="82" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.SampleGame PreferredExecutionTarget="MonoDevelop.Default" />
